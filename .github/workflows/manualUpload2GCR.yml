@@ -3,7 +3,7 @@ name: Build and Push to GCR
 on:
   push:
     tags:
-      - upload2GCR
+      - "TestOnGCR-*"
 
 # Environment variables available to all jobs and steps in this workflow
 #  GKE_EMAIL: ${{ secrets.GKE_EMAIL }} 
@@ -57,6 +57,4 @@ jobs:
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
-        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG"
-        docker tag "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG" "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-"$TAG"
-        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-"$TAG"
+        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"TestOnGCR"
