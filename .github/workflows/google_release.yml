@@ -16,6 +16,7 @@ env:
   IMAGE: 'python:3.7.13-slim'
   REGISTRY_HOSTNAME: 'gcr.io'
   IMAGE_NAME: 'flask-helloworld'
+  PROJECT_NAME: 'modelpoc'
 
 
 jobs:
@@ -43,7 +44,7 @@ jobs:
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
-        docker build -t "$REGISTRY_HOSTNAME"/"$IMAGE_NAME":"$TAG" \
+        docker build -t "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" .
 
@@ -52,6 +53,6 @@ jobs:
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
-        docker push "$REGISTRY_HOSTNAME"/"$IMAGE_NAME":"$TAG"
-        docker tag "$REGISTRY_HOSTNAME"/"$IMAGE_NAME":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE_NAME":latest-feat
-        docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest-feat
+        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG"
+        docker tag "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG" "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-feat
+        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE":latest-feat
