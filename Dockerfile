@@ -12,3 +12,6 @@ RUN pip install -r requirements.txt
 
 # run container 時要執行的命令
 CMD python main.py
+
+
+EXPOSE 8888
