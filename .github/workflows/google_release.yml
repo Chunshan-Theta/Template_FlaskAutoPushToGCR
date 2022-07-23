@@ -12,7 +12,7 @@ on:
 env:
   GITHUB_SHA: ${{ github.sha }} 
   GITHUB_REF: ${{ github.ref }} 
-  IMAGE: [IMAGE_NAME]
+  IMAGE: python:3.7.13-slim
   REGISTRY_HOSTNAME: gcr.io
 
 
