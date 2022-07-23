@@ -3,7 +3,7 @@ name: Build and Push to GCR
 on:
   push:
     branches: 
-      - release
+      - 'release'
 #   tags:
 #     - v*
 
@@ -11,26 +11,25 @@ on:
 #  GKE_EMAIL: ${{ secrets.GKE_EMAIL }} 
 #  GKE_KEY: ${{ secrets.GKE_KEY }} 
 env:
-  GITHUB_SHA: ${{ github.sha }} 
-  GITHUB_REF: ${{ github.ref }} 
-  IMAGE: python:3.7.13-slim
-  REGISTRY_HOSTNAME: gcr.io
+  GITHUB_SHA: '${{ github.sha }}' 
+  GITHUB_REF: '${{ github.ref }}'
+  IMAGE: 'python:3.7.13-slim'
+  REGISTRY_HOSTNAME: 'gcr.io'
 
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, and Publish
-    runs-on: ubuntu-latest
+    name: 'Setup, Build, and Publish'
+    runs-on: 'ubuntu-latest'
     steps:
 
-    - name: Checkout
-      uses: actions/checkout@v2
+    - name: 'Checkout'
+      uses: 'actions/checkout@v2'
 
     # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
+    - uses: 'google-github-actions/setup-gcloud@v0'
       with:
-        branch: develop
-        service_account_key: ${{ secrets.GCR_KEY }} 
+        credentials_json: '${{ secrets.GCR_KEY }}'
 
     # Configure docker to use the gcloud command-line tool as a credential helper
     - run: |
@@ -39,7 +38,7 @@ jobs:
         gcloud auth configure-docker
 
     # Build the Docker image
-    - name: Build
+    - name: 'Build'
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
@@ -48,7 +47,7 @@ jobs:
           --build-arg GITHUB_REF="$GITHUB_REF" .
 
     # Push the Docker image to Google Container Registry
-    - name: Publish
+    - name: 'Publish'
       run: |
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
