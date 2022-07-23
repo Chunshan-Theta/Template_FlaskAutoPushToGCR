@@ -3,7 +3,8 @@ name: Build and Push to GCR
 on:
   push:
     branches: 
-      - 'feat'
+      - 'release'
+      - 'main'
 #   tags:
 #     - v*
 
@@ -60,5 +61,5 @@ jobs:
         export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
         echo $TAG
         docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG"
-        docker tag "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG" "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-feat
-        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-feat
+        docker tag "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":"$TAG" "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-"$TAG"
+        docker push "$REGISTRY_HOSTNAME"/"$PROJECT_NAME"/"$IMAGE_NAME":latest-"$TAG"
