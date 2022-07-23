@@ -3,7 +3,7 @@ name: Build and Push to GCR
 on:
   push:
     tags:
-      - upload2GCR
+      - GCRTest-*
 
 # Environment variables available to all jobs and steps in this workflow
 #  GKE_EMAIL: ${{ secrets.GKE_EMAIL }} 
